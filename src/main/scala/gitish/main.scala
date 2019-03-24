@@ -7,8 +7,13 @@ import java.util.zip.Inflater
 
 object Main {
   def main(args: Array[String]): Unit = {
-    println(findGitDir("/Users/dennis/x/gitish"))
-    println(catFile("commit", "01d53d885c247ece575812a3cea08d9503c5a2ec"))
+    //println(findGitDir("/Users/dennis/x/gitish"))
+    //println(catFile("commit", "01d53d885c247ece575812a3cea08d9503c5a2ec"))
+    val str: String = "commit 7d7f6729ae0d61377521c62da16bc05e5e49da01\nAuthor: DH <denheck@gmail.com>\nDate:   Sun Mar 24 18:50:36 2019 -0500\nSome-other-key This\n Is\n A\n Value\n\n    add build and IDE artifacts"
+    // TODO: doesn't seem to handle deserializing double newlines well
+    val gc: GitCommit = GitCommit.deserialize(GitCommit.deserialize(str).serialize)
+
+    gc.debugPrint
   }
 
   private def execCommand(args: Array[String]): Unit = {
